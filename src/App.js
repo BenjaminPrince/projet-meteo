@@ -2,7 +2,7 @@ import Header from './Header';
 import Weather from './Weather';
 import './App.css';
 import { useEffect, useState } from 'react';
-import icons from './Logo';
+import icons from './Icons';
 
 function App() {
   const [cityName, setCityName] = useState("");
