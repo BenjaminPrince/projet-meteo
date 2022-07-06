@@ -20,7 +20,12 @@ function Weather(props) {
                         <span className="temperature">{props.temp}°</span>
                         <div className="wind">{props.vent}</div>
                     </div>
-                    <Days />
+                    <Days 
+                        date={props.date}
+                        goNextDay={props.goNextDay}
+                        nextDay={props.nextDay}
+
+                    />
                 </div>
             </div>
         </div>
