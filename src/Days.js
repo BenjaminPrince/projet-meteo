@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { DateContext } from "./App";
 
-function Days(props)  {
- 
-    const date= new Date(props.date *1000);
+function Days()  {
+    const contextDate = useContext(DateContext)
+    const date= new Date(contextDate.date *1000);
     const today= (new Intl.DateTimeFormat("ja-JP-u-ca-japanese", {weekday:'long'}).format(date))
 
     function click(e){
@@ -13,13 +14,13 @@ function Days(props)  {
         e.target.style.fontWeight = 'bold'
         e.preventDefault();
 
-        props.goNextDay(e.target.getAttribute('data-time'))
+        contextDate.goNextDay(e.target.getAttribute('data-time'))
     }
 
     function displayDate(){
-        if(props.nextDay.length>0){
+        if(contextDate.nextDay.length>0){
             return (
-                props.nextDay.map((element)=>{
+                contextDate.nextDay.map((element)=>{
                     let dayOfWeek = (new Intl.DateTimeFormat("ja-JP-u-ca-japanese", {weekday:'long'} ).format(element*1000));
                     return ( <a onClick={click} data-time={element} href=""> {dayOfWeek}</a> )
                 })
@@ -29,7 +30,7 @@ function Days(props)  {
 
     return (
         <div className="card-action">
-            <a onClick={click} data-time={props.date} href="">
+            <a onClick={click} data-time={contextDate.date} href="">
                {today}
             </a>
            {displayDate()}

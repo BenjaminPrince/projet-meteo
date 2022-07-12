@@ -1,8 +1,11 @@
 import Header from './Header';
 import Weather from './Weather';
 import './App.css';
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import icons from './Icons';
+
+export const DateContext = createContext();
+export const WeatherContext = createContext();
 
 function App() {
   const [cityName, setCityName] = useState("");
@@ -31,9 +34,9 @@ function App() {
         setDate(result.list[0].dt);
         setNextDay([
           result.list[0].dt + 86400,
-          result.list[0].dt + (86400*2),
-          result.list[0].dt + (86400*3),
-          result.list[0].dt + (86400*4),
+          result.list[0].dt + (86400 * 2),
+          result.list[0].dt + (86400 * 3),
+          result.list[0].dt + (86400 * 4),
         ])
         setAllData(result)
 
@@ -53,20 +56,22 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Header
-      />
-      <Weather
-        city={cityName}
-        temp={temperature}
-        vent={vent}
-        image={image}
-        date={date}
-        nextDay={nextDay}
-        goNextDay={goNextDay}
-      />
-      
-    </div>
+    <DateContext.Provider value={{ date, nextDay, goNextDay }}>
+      <WeatherContext.Provider value={{cityName, temperature, vent, image}}>
+      <div className="App">
+        <Header
+        />
+        <Weather
+          // city={cityName}
+          // temp={temperature}
+          // vent={vent}
+          // image={image}
+        />
+
+      </div>
+      </WeatherContext.Provider>
+    </DateContext.Provider>
+
   );
 }
 

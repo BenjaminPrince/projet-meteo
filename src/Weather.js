@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { WeatherContext } from "./App";
 import Days from "./Days";
 
 
-function Weather(props) {
+function Weather() {
+
+    const weather= useContext(WeatherContext)
 
     return (
 
@@ -12,19 +15,16 @@ function Weather(props) {
 
 
                     <div className="card-content white-text">
-                        <span className="card-title">{props.city}</span>
+                        <span className="card-title">{weather.cityName}</span>
                         <p>
-                            <img src={props.image} />
+                            <img src={weather.image} />
                         </p>
 
-                        <span className="temperature">{props.temp}°</span>
-                        <div className="wind">{props.vent}</div>
+                        <span className="temperature">{weather.temperature}°</span>
+                        <div className="wind">{weather.vent}</div>
                     </div>
                     <Days 
-                        date={props.date}
-                        goNextDay={props.goNextDay}
-                        nextDay={props.nextDay}
-
+                       
                     />
                 </div>
             </div>
